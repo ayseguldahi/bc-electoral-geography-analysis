@@ -4,6 +4,8 @@ A PostgreSQL/PostGIS analysis of British Columbia's electoral geography: spatial
 
 **Data:** Elections BC open data via the BC Geographic Data Warehouse — electoral district boundaries (2015 and 2023 redistributions), voting places (4,354 points), and official voting results by voting place. Licence: Elections BC Open Data Licence.
 
+**Developed specifically to replicate and better understand the work performed by Elections BC's Voter Data & Geography unit** — Assigning voters to electoral districts based on the location of their residential address.
+
 ## Purpose
 
 Elections BC's Voter Data and Geography unit turns on a single core question: is every voter assigned to the correct electoral district based on their residential address? This project is a hands-on simulation of that work, built entirely from Elections BC's own open data. I assigned 4,354 voting places to districts from their coordinates (point-in-polygon), validated the result against the official assignments, and measured how much the 2023 redistribution (87 → 93 districts) redrew the map. The aim is not to show that I can write SQL, but to solve the unit's real business problem with the unit's own data — and to show where geometry helps and where it must not be trusted.
