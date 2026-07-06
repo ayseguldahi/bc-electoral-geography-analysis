@@ -4,6 +4,10 @@ A PostgreSQL/PostGIS analysis of British Columbia's electoral geography: spatial
 
 **Data:** Elections BC open data via the BC Geographic Data Warehouse — electoral district boundaries (2015 and 2023 redistributions), voting places (4,354 points), and official voting results by voting place. Licence: Elections BC Open Data Licence.
 
+## Purpose
+
+Elections BC's Voter Data and Geography unit turns on a single core question: is every voter assigned to the correct electoral district based on their residential address? This project is a hands-on simulation of that work, built entirely from Elections BC's own open data. I assigned 4,354 voting places to districts from their coordinates (point-in-polygon), validated the result against the official assignments, and measured how much the 2023 redistribution (87 → 93 districts) redrew the map. The aim is not to show that I can write SQL, but to solve the unit's real business problem with the unit's own data — and to show where geometry helps and where it must not be trusted.
+
 ## Key Findings
 
 1. **Point-in-polygon assignment matches official district assignments 84.5% of the time — and the mismatches are a feature, not a bug.** Roughly 15% of voting places physically sit in a different district than the one they serve (e.g., facilities just across a boundary, like a Coquitlam-Burke Mountain voting place located in Port Coquitlam). This quantifies why Elections BC warns that spatial data alone must not determine a voter's district: authoritative assignment requires address reference data, with geometry as a validation layer.
@@ -16,11 +20,17 @@ A PostgreSQL/PostGIS analysis of British Columbia's electoral geography: spatial
 
 ![Redistribution origins](images/redistribution_origins.png)
 
+## Why It Matters
+
+**For decision-makers.** The mixed-origin score points to where "Where do I vote?" confusion will be highest — the new districts stitched together from many predecessors — so voter-card updates, communication campaigns, and call-centre capacity can be concentrated where they are needed most. The out-of-district facility analysis feeds voting-place selection and wayfinding. And the 22-vote margin in Surrey-Guildford is the clearest case for why data quality is existential: assigning even a few hundred voters to the wrong district could change the outcome of a seat.
+
+**For the public.** In a democracy, the answer to "was my vote counted correctly?" begins with correct district assignment — the guarantee that each voter is choosing among the right candidates. This analysis was built entirely from open data using reproducible, transparent methods, which is exactly how trust in election administration is earned. Its beneficiary is not a company; it is every voter in British Columbia.
+
 ## What This Demonstrates
 
-- **Relational databases:** schema design, bulk loading (`ogr2ogr`, `\copy`), indexes (including GIST spatial indexes), CTEs, window functions (`RANK`, `LEAD`), views.
+- **Relational databases:** Schema design, bulk loading (`ogr2ogr`, `\copy`), indexes (including GIST spatial indexes), CTEs, window functions (`RANK`, `LEAD`), views.
 - **GIS / spatial databases:** PostGIS `ST_Contains` point-in-polygon joins, `ST_Intersection`/`ST_Area` overlay analysis in an equal-area projection (EPSG:3005 BC Albers — chosen deliberately, since area math in geographic coordinates would be wrong), spatial validation against authoritative assignments.
-- **Domain judgment:** understanding that facility location ≠ served district, that 2024 results are reported by voting place rather than voting area under the new voting administration model, and that sliver overlaps (<1%) must be filtered from redistribution analysis.
+- **Domain judgment:** Understanding that facility location ≠ served district, that 2024 results are reported by voting place rather than voting area under the new voting administration model, and that sliver overlaps (<1%) must be filtered from redistribution analysis.
 
 ## Project Structure
 
