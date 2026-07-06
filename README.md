@@ -18,9 +18,9 @@ A PostgreSQL/PostGIS analysis of British Columbia's electoral geography: spatial
 
 ## What This Demonstrates
 
-- **Relational databases:** schema design, bulk loading (`ogr2ogr`, `\copy`), indexes (including GIST spatial indexes), CTEs, window functions (`RANK`, `LEAD`), views.
+- **Relational databases:** Schema design, bulk loading (`ogr2ogr`, `\copy`), indexes (including GIST spatial indexes), CTEs, window functions (`RANK`, `LEAD`), views.
 - **GIS / spatial databases:** PostGIS `ST_Contains` point-in-polygon joins, `ST_Intersection`/`ST_Area` overlay analysis in an equal-area projection (EPSG:3005 BC Albers — chosen deliberately, since area math in geographic coordinates would be wrong), spatial validation against authoritative assignments.
-- **Domain judgment:** understanding that facility location ≠ served district, that 2024 results are reported by voting place rather than voting area under the new voting administration model, and that sliver overlaps (<1%) must be filtered from redistribution analysis.
+- **Domain judgment:** Understanding that facility location ≠ served district, that 2024 results are reported by voting place rather than voting area under the new voting administration model, and that sliver overlaps (<1%) must be filtered from redistribution analysis.
 
 ## Project Structure
 
